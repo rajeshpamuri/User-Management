@@ -2,6 +2,8 @@ package com.rajesh.UserManagment.controllers;
 
 import com.rajesh.UserManagment.Dtos.*;
 
+import com.rajesh.UserManagment.Entitys.User;
+import com.rajesh.UserManagment.repositories.UserRepo;
 import com.rajesh.UserManagment.services.DashService;
 import com.rajesh.UserManagment.services.EmailService;
 import com.rajesh.UserManagment.services.UserService;
@@ -19,6 +21,9 @@ public class UserController {
     
    @Autowired
    private DashService dashService;
+
+   @Autowired
+   private UserRepo userRepo;
 
     @Autowired
     private UserService userService;
@@ -76,11 +81,12 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginValidity(@ModelAttribute("loginForm") LoginFormDTO loginFormDTO, Model model){
+        User byEmail = userRepo.findByEmail(loginFormDTO.getEmail());
         UserDTO login = userService.login(loginFormDTO);
         if (login==null) {
          model.addAttribute("emsg", "Invalid credential");
         }else {
-            if ("Yes".equals(login.getPassRest())){
+            if ("Yes".equals(byEmail.getPassRest())){
                 return"redirect:dashboard";
             }else {
                 return"redirect:resetPwd?email="+login.getEmail();
