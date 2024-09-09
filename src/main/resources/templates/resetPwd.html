@@ -10,6 +10,7 @@
 
 <div class="container">
     <h1>Reset Password Here..!</h1>
+    <font style=color:red;> <p th:text="${emsg}"></p></font>
 <form th:action="@{/resetPage}" th:object="${resetPwdForm}" method="post">
     <table>
 

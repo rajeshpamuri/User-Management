@@ -56,15 +56,17 @@
 </head>
 
 <body>
-<span style=color:red;> <p th:text="${emsg}"  ></p></span>
-<span style=color:green;> <p th:text="${smsg}"  ></p></span>
-<h1>Register Here...!</h1>
+
    <div class="container">
+       <h1>Register Here...!</h1>
+       <font style=color:red;> <p th:text="${Emsg}"></p></font>
+       <font style=color:green;> <p th:text="${smsg}"></p></font>
+
     <form th:action="@{/register}" th:object="${registerForm}" method="post">
         <table>
             <tr>
-               <td>Name:</td>
-               <td> <input type="text" th:field="*{name}" class="form-control"></td>
+           <td>Name:</td><td>
+                <input type="text" th:field="*{name}" class="form-control"></td>
             </tr>
             <tr>
                 <td>Email:</td>
